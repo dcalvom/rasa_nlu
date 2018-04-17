@@ -30,6 +30,7 @@ class Project(object):
         self._component_builder = component_builder
         self._models = {}
         self.status = 0
+        self.training_processes = 0
         self._reader_lock = Lock()
         self._loader_lock = Lock()
         self._writer_lock = Lock()
@@ -143,6 +144,7 @@ class Project(object):
 
     def as_dict(self):
         return {'status': 'training' if self.status else 'ready',
+                'training_processes': self.training_processes,
                 'available_models': list(self._models.keys())}
 
     def _list_models_in_cloud(self, config):

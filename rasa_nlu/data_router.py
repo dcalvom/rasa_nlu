@@ -207,10 +207,11 @@ class DataRouter(object):
         if not project:
             raise InvalidProjectError("Missing project name to train")
         elif project in self.project_store:
-            if self.project_store[project].status == 1 and self._training_processes == 1:
+            if self.project_store[project].status == 1 and self.project_store[project].training_processes = self._training_processes:
                 raise AlreadyTrainingError
             else:
                 self.project_store[project].status = 1
+                self.project_store[project].training_processes += 1
         elif project not in self.project_store:
             self.project_store[project] = Project(self.config, self.component_builder, project)
             self.project_store[project].status = 1
